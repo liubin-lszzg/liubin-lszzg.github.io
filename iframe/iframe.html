@@ -301,9 +301,9 @@
     let params = {}
     window.addEventListener('message', async function (event) {
         params = JSON.parse(event.data);
-        provider.getBlockNumber().then(function (blockNumber) {
-            console.log(blockNumber);
-        });
+        // provider.getBlockNumber().then(function (blockNumber) {
+        //     console.log(blockNumber);
+        // });
         if (params.method === 'createWallet') {
             createWallet();
             window.parent.postMessage(JSON.stringify({
@@ -379,11 +379,11 @@
             }), '*')
         } else {
             console.log('未知方法');
-            window.parent.postMessage(JSON.stringify({
-                event: '未知方法',
-                data: '未知方法',
-                id: params.id
-            }), '*')
+            // window.parent.postMessage(JSON.stringify({
+            //     event: '未知方法',
+            //     data: '未知方法',
+            //     id: params.id
+            // }), '*')
         }
     })
     </script>
