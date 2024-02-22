@@ -28,7 +28,7 @@
 
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
-      const SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+      const SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.appdata';
 
       let tokenClient;
       let gapiInited = false;
@@ -140,6 +140,22 @@
             (str, file) => `${str}${file.name} (${file.id})\n`,
             'Files:\n');
         document.getElementById('content').innerText = output;
+
+        const fileMetadata = {
+            name: 'config.json',
+            parents: ['appDataFolder'],
+        };
+        const media = {
+            mimeType: 'application/json',
+            body: "{'name': 'test'}",
+        };
+        gapi.client.drive.files.create({
+            resource: fileMetadata,
+            media: media,
+            fields: 'id'
+        }).then(function(response) {
+            console.log('File Id: ', response.result.id);
+        });
       }
     </script>
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
